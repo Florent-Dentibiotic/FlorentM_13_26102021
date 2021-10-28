@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import useFetchUser from '../services/UserSevice';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [toProfile, setToProfile] = useState(false);
+    const { error, token } = useFetchUser(email, password);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,6 +14,7 @@ export default function Login() {
         if (!email || !password) {
             return;
         }
+        console.log(token, error);
         setToProfile(true);
     };
 
@@ -47,7 +50,7 @@ export default function Login() {
                             <Redirect
                                 to={{
                                     pathname: `/profile`,
-                                    state: { email, password },
+                                    state: { token },
                                 }}
                             />
                         ) : null}

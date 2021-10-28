@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function useFetchUser(email, password) {
     const [error, setError] = useState(null);
-    const [data, setData] = useState({});
+    const [token, setData] = useState({});
 
     useEffect(() => {
         async function fetchUser() {
@@ -16,14 +16,14 @@ export default function useFetchUser(email, password) {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            email: { email },
-                            password: { password },
+                            email: email,
+                            password: password,
                         }),
                     }
                 );
-                const token = await response.json();
-                console.log(token);
-                setData(token);
+                const { body } = await response.json();
+                console.log(body.token);
+                setData(body.token);
             } catch (err) {
                 setError(err);
             }
@@ -33,6 +33,6 @@ export default function useFetchUser(email, password) {
 
     return {
         error,
-        data,
+        token,
     };
 }
