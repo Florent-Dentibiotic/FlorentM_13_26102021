@@ -1,12 +1,18 @@
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import useFetchUser from '../services/UserSevice';
+import { useDispatch, useStore } from 'react-redux';
+import { setEmail, setPassword } from '../features/login';
+import { loginService } from '../services/LoginService';
+//import { Redirect } from 'react-router-dom';
+//import { fetchLogin } from '../services/LoginService';
+
+//import useFetchUser from '../services/UserSevice';
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [toProfile, setToProfile] = useState(false);
-    const { error, token } = useFetchUser(email, password);
+    const store = useStore();
+    const dispatch = useDispatch();
+    const [email, setFormEmail] = useState('');
+    const [password, setFormPassword] = useState('');
+    //const [toProfile, setToProfile] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,9 +20,18 @@ export default function Login() {
         if (!email || !password) {
             return;
         }
-        console.log(token, error);
-        setToProfile(true);
+        //const token = fetchLogin(email, password);
+        dispatch(setEmail(email));
+        dispatch(setPassword(password));
+
+        loginService(store);
+        console.log(store.getState());
     };
+
+    // const tokenLoaded = useSelector((state) => state.token);
+    // if (tokenLoaded) {
+    //     setToProfile(true);
+    // }
 
     return (
         <>
@@ -26,34 +41,35 @@ export default function Login() {
                     <h1>Sign In</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="input-wrapper">
-                            <label for="username">Username</label>
+                            <label htmlFor="username">Username</label>
                             <input
                                 type="text"
                                 id="username"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => setFormEmail(e.target.value)}
                             />
                         </div>
                         <div className="input-wrapper">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input
                                 type="password"
                                 id="password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) =>
+                                    setFormPassword(e.target.value)
+                                }
                             />
                         </div>
                         <div className="input-remember">
                             <input type="checkbox" id="remember-me" />
-                            <label for="remember-me">Remember me</label>
+                            <label htmlFor="remember-me">Remember me</label>
                         </div>
                         <button className="sign-in-button">Sign In</button>
-                        {toProfile ? (
+                        {/* {toProfile ? (
                             <Redirect
                                 to={{
                                     pathname: `/profile`,
-                                    state: { token },
                                 }}
                             />
-                        ) : null}
+                        ) : null} */}
                     </form>
                 </section>
             </main>
