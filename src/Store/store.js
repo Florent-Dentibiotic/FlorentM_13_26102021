@@ -7,7 +7,6 @@ const reduxDevtools =
     window.__REDUX_DEVTOOLS_EXTENSION__();
 
 const reducer = combineReducers({
-    // le themeReducer est responsable de la propriété `theme` du state
     user: userReducer,
     login: loginReducer,
 });

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch, useStore } from 'react-redux';
 import { setEmail, setPassword } from '../features/login';
+import { selectLogin } from '../Selectors/selector';
 import { loginService } from '../services/LoginService';
-//import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 //import { fetchLogin } from '../services/LoginService';
 
 //import useFetchUser from '../services/UserSevice';
@@ -10,6 +12,7 @@ import { loginService } from '../services/LoginService';
 export default function Login() {
     const store = useStore();
     const dispatch = useDispatch();
+    const login = useSelector(selectLogin);
     const [email, setFormEmail] = useState('');
     const [password, setFormPassword] = useState('');
     //const [toProfile, setToProfile] = useState(false);
@@ -63,13 +66,13 @@ export default function Login() {
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
                         <button className="sign-in-button">Sign In</button>
-                        {/* {toProfile ? (
+                        {login.status === 'resolved' ? (
                             <Redirect
                                 to={{
                                     pathname: `/profile`,
                                 }}
                             />
-                        ) : null} */}
+                        ) : null}
                     </form>
                 </section>
             </main>
