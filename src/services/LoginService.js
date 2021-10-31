@@ -1,4 +1,5 @@
 import { selectLogin } from '../Selectors/selector';
+import TokenMapper from '../mappings/tokenMapper';
 
 export const FETCHING = 'login/fetching';
 export const RESOLVED = 'login/resolved';
@@ -34,9 +35,11 @@ export async function loginService(store) {
                 }),
             }
         );
-        const { body } = await response.json();
-        store.dispatch(loginResolved(body.token));
+        const json = await response.json();
+        store.dispatch(loginResolved(TokenMapper.convertToToken(json).token));
     } catch (error) {
-        store.dispatch(loginRejected(error));
+        console.log(error.message);
+        store.dispatch(loginRejected(error.message));
+        store.dispatch(loginResolved(null));
     }
 }
