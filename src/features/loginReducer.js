@@ -12,12 +12,16 @@ const loginState = {
 
 export const setEmail = (email) => ({
     type: 'setEmail',
-    payload: { email: email },
+    payload: {
+        email: email,
+    },
 });
 
 export const setPassword = (password) => ({
     type: 'setPassword',
-    payload: { password: password },
+    payload: {
+        password: password,
+    },
 });
 
 export const Log_out = () => ({
@@ -35,15 +39,6 @@ export default function loginReducer(state = loginState, action) {
         const password = action.payload.password;
         return produce(state, (draft) => {
             draft.password = password;
-        });
-    }
-    if (action.type === 'LogOutUser') {
-        return produce(state, (draft) => {
-            draft.email = null;
-            draft.password = null;
-            draft.status = 'void';
-            draft.token = null;
-            draft.error = null;
         });
     }
     return produce(state, (draft) => {
@@ -79,6 +74,14 @@ export default function loginReducer(state = loginState, action) {
                     draft.status = 'rejected';
                     return;
                 }
+                return;
+            }
+            case 'LogOutUser': {
+                draft.email = null;
+                draft.password = null;
+                draft.status = 'void';
+                draft.token = null;
+                draft.error = null;
                 return;
             }
             default:

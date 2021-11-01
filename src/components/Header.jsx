@@ -1,10 +1,11 @@
 import ArgentBankLogo from '../assets/argentBankLogo.png';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectLogin } from '../Selectors/selector';
-import { Log_out } from '../features/login';
+import { selectLogin, selectUser } from '../Selectors/selector';
+import { Log_out } from '../features/loginReducer';
 
 export default function Header() {
+    const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const login = useSelector(selectLogin);
 
@@ -22,16 +23,15 @@ export default function Header() {
                 {login.status === 'resolved' ? (
                     <>
                         <Link className="main-nav-item" to="/profile">
-                            <i className="fa fa-user-circle"></i>
-                            Tony
+                            <i className="fa fa-user-circle"></i>{' '}
+                            {user.firstName}
                         </Link>
                         <Link
                             className="main-nav-item"
                             to="/"
                             onClick={() => dispatch(Log_out())}
                         >
-                            <i className="fa fa-sign-out"></i>
-                            Sign Out
+                            <i className="fa fa-sign-out"></i> Sign Out
                         </Link>
                     </>
                 ) : (

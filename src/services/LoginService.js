@@ -5,10 +5,8 @@ export const FETCHING = 'login/fetching';
 export const RESOLVED = 'login/resolved';
 export const REJECTED = 'login/rejected';
 
-const loginFetching = (email, password) => ({
-    type: FETCHING,
-    payload: { email: email, password: password },
-});
+// FETCHING  ACTIONS
+const loginFetching = () => ({ type: FETCHING });
 const loginResolved = (token) => ({ type: RESOLVED, payload: token });
 const loginRejected = (error) => ({ type: REJECTED, payload: error });
 

@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux';
 import userReducer from '../features/userReducer';
-import loginReducer from '../features/login';
+import loginReducer from '../features/loginReducer';
 
 const reduxDevtools =
     window.__REDUX_DEVTOOLS_EXTENSION__ &&

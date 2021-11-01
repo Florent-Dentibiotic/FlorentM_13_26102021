@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch, useStore } from 'react-redux';
-import { setEmail, setPassword } from '../features/login';
+import { useDispatch, useStore, useSelector } from 'react-redux';
+import { setEmail, setPassword } from '../features/loginReducer';
 import { selectLogin } from '../Selectors/selector';
 import { loginService } from '../services/LoginService';
 import { Redirect } from 'react-router-dom';
-//import { fetchLogin } from '../services/LoginService';
-
-//import useFetchUser from '../services/UserSevice';
 
 export default function Login() {
     const store = useStore();
@@ -15,7 +11,6 @@ export default function Login() {
     const login = useSelector(selectLogin);
     const [email, setFormEmail] = useState('');
     const [password, setFormPassword] = useState('');
-    //const [toProfile, setToProfile] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,18 +18,11 @@ export default function Login() {
         if (!email || !password) {
             return;
         }
-        //const token = fetchLogin(email, password);
         dispatch(setEmail(email));
         dispatch(setPassword(password));
 
         loginService(store);
-        console.log(store.getState());
     };
-
-    // const tokenLoaded = useSelector((state) => state.token);
-    // if (tokenLoaded) {
-    //     setToProfile(true);
-    // }
 
     return (
         <>
