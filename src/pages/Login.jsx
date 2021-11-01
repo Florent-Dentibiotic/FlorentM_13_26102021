@@ -9,6 +9,7 @@ export default function Login() {
     const store = useStore();
     const dispatch = useDispatch();
     const login = useSelector(selectLogin);
+    const [checkBox, setCheckBox] = useState(false);
     const [email, setFormEmail] = useState('');
     const [password, setFormPassword] = useState('');
 
@@ -50,7 +51,21 @@ export default function Login() {
                             />
                         </div>
                         <div className="input-remember">
-                            <input type="checkbox" id="remember-me" />
+                            {checkBox ? (
+                                <input
+                                    type="checkbox"
+                                    id="remember-me"
+                                    defaultChecked
+                                    onChange={() => setCheckBox(!checkBox)}
+                                />
+                            ) : (
+                                <input
+                                    type="checkbox"
+                                    id="remember-me"
+                                    onChange={() => setCheckBox(!checkBox)}
+                                />
+                            )}
+
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
                         <button className="sign-in-button">Sign In</button>
