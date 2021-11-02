@@ -36,7 +36,9 @@ export default function Login() {
         loginService(store);
     };
 
+    // REDUX STATE
     const isLoading = login.status === 'pending';
+    const error = login.error;
 
     return (
         <>
@@ -70,6 +72,12 @@ export default function Login() {
                                             setFormPassword(e.target.value)
                                         }
                                     />
+                                    {error && (
+                                        <p className="input-alert">
+                                            Merci de saisir un identifiant et
+                                            mot de passe valide
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="input-remember">
                                     {checkBox ? (

@@ -38,6 +38,5 @@ export async function loginService(store) {
     } catch (error) {
         console.log(error.message);
         store.dispatch(loginRejected(error.message));
-        store.dispatch(loginResolved(null));
     }
 }

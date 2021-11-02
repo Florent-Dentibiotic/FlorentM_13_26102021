@@ -36,6 +36,5 @@ export async function userService(store, token) {
     } catch (error) {
         console.log(error.message);
         store.dispatch(userRejected(error.message));
-        store.dispatch(userResolved(null));
     }
 }

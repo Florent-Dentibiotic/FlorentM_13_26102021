@@ -203,6 +203,12 @@ body {
     font-size: 1.2rem;
 }
 
+.input-alert {
+    color: red;
+    font-size: 11px;
+    margin: 0.5em 0 0 0;
+}
+
 .user-input,
 .user-button {
     display: flex;

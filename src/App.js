@@ -5,6 +5,7 @@ import './index.css';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Error from './components/Error';
 
 function App() {
     return (
@@ -19,6 +20,9 @@ function App() {
                 </Route>
                 <Route exact path="/profile">
                     <Profile />
+                </Route>
+                <Route>
+                    <Error />
                 </Route>
             </Switch>
             <Footer />

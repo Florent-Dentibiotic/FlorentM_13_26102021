@@ -39,6 +39,5 @@ export async function editUserService(store, token) {
     } catch (error) {
         console.log(error.message);
         store.dispatch(userRejected(error.message));
-        store.dispatch(userResolved(null));
     }
 }
