@@ -203,6 +203,40 @@ body {
     font-size: 1.2rem;
 }
 
+.user-input,
+.user-button {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.user-input {
+    margin-top: -21.44px;
+}
+
+.user-input-editor {
+    margin: 0.5rem;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+.user-edit-button {
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0.5rem;
+    width: 6rem;
+}
+
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 380px;
+}
+
 .footer {
     display: flex;
     justify-content: center;

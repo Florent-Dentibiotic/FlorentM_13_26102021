@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore, useSelector } from 'react-redux';
 import { selectUser, selectLogin } from '../Selectors/selector';
 import { userService } from '../services/UserService';
@@ -7,33 +7,67 @@ export default function Profile() {
     const store = useStore();
     const user = useSelector(selectUser);
     const token = selectLogin(store.getState()).token;
+    const [editProfile, setEditor] = useState(false);
 
     useEffect(() => {
         token && userService(store, token);
     }, [store, token]);
 
-    // {
-    //     login.status === 'resolved' ?  : (
-    //         <Redirect
-    //             to={{
-    //                 pathname: `/profile`,
-    //             }}
-    //         />
-    //     )
-    // }
+    const editNav = () => {};
+
     return (
         <>
             {user.user_status === 'resolved' && (
                 <>
                     <main className="main bg-dark">
                         <div className="header">
-                            <h1>
-                                Welcome back
-                                <br />
-                                {user.firstName} {user.lastName}
-                            </h1>
-
-                            <button className="edit-button">Edit Name</button>
+                            {editProfile ? (
+                                <>
+                                    <h1>Welcome back</h1>
+                                    <div className="user-input">
+                                        <input
+                                            className="user-input-editor"
+                                            type="text"
+                                            id="username"
+                                            placeholder={user.firstName}
+                                        />
+                                        <input
+                                            className="user-input-editor"
+                                            type="text"
+                                            id="lastname"
+                                            placeholder={user.lastName}
+                                        />
+                                    </div>
+                                    <div className="user-button">
+                                        <button
+                                            className="user-edit-button"
+                                            onClick={() => setEditor(false)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="user-edit-button"
+                                            onClick={() => setEditor(false)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <h1>
+                                        Welcome back
+                                        <br />
+                                        {user.firstName} {user.lastName}
+                                    </h1>
+                                    <button
+                                        className="edit-button"
+                                        onClick={() => setEditor(true)}
+                                    >
+                                        Edit Name
+                                    </button>
+                                </>
+                            )}
                         </div>
                         <h2 className="sr-only">Accounts</h2>
                         <section className="account">
