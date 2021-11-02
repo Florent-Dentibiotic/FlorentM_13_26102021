@@ -1,19 +1,39 @@
 import { useEffect, useState } from 'react';
-import { useStore, useSelector } from 'react-redux';
+import { useStore, useSelector, useDispatch } from 'react-redux';
 import { selectUser, selectLogin } from '../Selectors/selector';
+import { editUserService } from '../services/EditUserService';
 import { userService } from '../services/UserService';
+import { setFirstName, setLastName } from '../features/userReducer';
 
 export default function Profile() {
     const store = useStore();
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const token = selectLogin(store.getState()).token;
     const [editProfile, setEditor] = useState(false);
+    const [newFirstName, setNewFirstName] = useState('');
+    const [newLastName, setNewLastName] = useState('');
+
+    // REGEX
+    const regexFirst = /^[a-zA-Z]+[a-zA-Z-]?[a-zA-Z]+$/;
+    const regexLast = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
 
     useEffect(() => {
         token && userService(store, token);
     }, [store, token]);
 
-    const editNav = () => {};
+    const editNav = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (regexFirst.test(newFirstName) && newFirstName !== user.firstName) {
+            dispatch(setFirstName(newFirstName));
+        }
+        if (regexLast.test(newLastName) && newLastName !== user.LastName) {
+            dispatch(setLastName(newLastName));
+        }
+        editUserService(store, token);
+        setEditor(false);
+    };
 
     return (
         <>
@@ -24,34 +44,46 @@ export default function Profile() {
                             {editProfile ? (
                                 <>
                                     <h1>Welcome back</h1>
-                                    <div className="user-input">
-                                        <input
-                                            className="user-input-editor"
-                                            type="text"
-                                            id="username"
-                                            placeholder={user.firstName}
-                                        />
-                                        <input
-                                            className="user-input-editor"
-                                            type="text"
-                                            id="lastname"
-                                            placeholder={user.lastName}
-                                        />
-                                    </div>
-                                    <div className="user-button">
-                                        <button
-                                            className="user-edit-button"
-                                            onClick={() => setEditor(false)}
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            className="user-edit-button"
-                                            onClick={() => setEditor(false)}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                                    <form onSubmit={editNav}>
+                                        <div className="user-input">
+                                            <input
+                                                className="user-input-editor"
+                                                type="text"
+                                                id="username"
+                                                placeholder={user.firstName}
+                                                onChange={(e) =>
+                                                    setNewFirstName(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                className="user-input-editor"
+                                                type="text"
+                                                id="lastname"
+                                                placeholder={user.lastName}
+                                                onChange={(e) =>
+                                                    setNewLastName(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className="user-button">
+                                            <button
+                                                className="user-edit-button"
+                                                type="submit"
+                                            >
+                                                Save
+                                            </button>
+                                            <button
+                                                className="user-edit-button"
+                                                onClick={() => setEditor(false)}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
                                 </>
                             ) : (
                                 <>

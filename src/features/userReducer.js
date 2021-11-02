@@ -5,7 +5,8 @@ import {
     USER_REJECTED,
 } from '../services/UserService';
 
-// state
+// INITIAL STATE
+
 const userState = {
     user_status: 'void',
     firstName: null,
@@ -13,7 +14,7 @@ const userState = {
     error: null,
 };
 
-// actions creators
+// ACTIONS CREATOR
 
 export const setFirstName = (firstName) => ({
     type: 'setFirstName',
@@ -24,6 +25,8 @@ export const setLastName = (lastName) => ({
     type: 'setLastName',
     payload: { lastName: lastName },
 });
+
+// USER REDUCER
 
 export default function userReducer(state = userState, action) {
     if (action.type === 'setFirstName') {

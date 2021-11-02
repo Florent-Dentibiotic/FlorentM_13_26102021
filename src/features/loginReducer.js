@@ -1,7 +1,8 @@
 import produce from 'immer';
 import { FETCHING, RESOLVED, REJECTED } from '../services/LoginService';
 
-// state
+// INITIAL STATE
+
 const loginState = {
     email: null,
     password: null,
@@ -9,6 +10,8 @@ const loginState = {
     token: null,
     error: null,
 };
+
+// ACTIONS CREATOR
 
 export const setEmail = (email) => ({
     type: 'setEmail',
@@ -27,6 +30,8 @@ export const setPassword = (password) => ({
 export const Log_out = () => ({
     type: 'LogOutUser',
 });
+
+// LOGIN REDUCER
 
 export default function loginReducer(state = loginState, action) {
     if (action.type === 'setEmail') {
