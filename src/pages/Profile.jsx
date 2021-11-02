@@ -6,10 +6,13 @@ import { userService } from '../services/UserService';
 import { setFirstName, setLastName } from '../features/userReducer';
 
 export default function Profile() {
+    // REDUX FUNCTIONS
     const store = useStore();
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const token = selectLogin(store.getState()).token;
+
+    // REACT LOCAL FUNCTIONS
     const [editProfile, setEditor] = useState(false);
     const [newFirstName, setNewFirstName] = useState('');
     const [newLastName, setNewLastName] = useState('');
@@ -18,10 +21,20 @@ export default function Profile() {
     const regexFirst = /^[a-zA-Z]+[a-zA-Z-]?[a-zA-Z]+$/;
     const regexLast = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
 
+    /**
+     * RECOVERING USER DETAILS WITH USER SERVICE
+     */
     useEffect(() => {
         token && userService(store, token);
     }, [store, token]);
 
+    /**
+     * REGEX TEST TO SECURE THE UPDATE OF REDUX USER STATE
+     *
+     * THEN
+     *
+     * CALL PUT SERVICE TO UPDATE USER IDENTITY
+     */
     const editNav = (e) => {
         e.preventDefault();
         e.stopPropagation();

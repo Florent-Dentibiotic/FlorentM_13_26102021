@@ -34,20 +34,20 @@ export const Log_out = () => ({
 // LOGIN REDUCER
 
 export default function loginReducer(state = loginState, action) {
-    if (action.type === 'setEmail') {
-        const email = action.payload.email;
-        return produce(state, (draft) => {
-            draft.email = email;
-        });
-    }
-    if (action.type === 'setPassword') {
-        const password = action.payload.password;
-        return produce(state, (draft) => {
-            draft.password = password;
-        });
-    }
     return produce(state, (draft) => {
         switch (action.type) {
+            case 'setEmail': {
+                const email = action.payload.email;
+                return produce(state, (draft) => {
+                    draft.email = email;
+                });
+            }
+            case 'setPassword': {
+                const password = action.payload.password;
+                return produce(state, (draft) => {
+                    draft.password = password;
+                });
+            }
             case FETCHING: {
                 if (draft.status === 'void') {
                     draft.status = 'pending';

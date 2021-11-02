@@ -2,7 +2,7 @@ export default class Token {
     /**
      * Token informations
      *
-     * @param { number } token
+     * @param { string } token
      */
     constructor(token) {
         this.token = token;

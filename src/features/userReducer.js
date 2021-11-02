@@ -29,20 +29,20 @@ export const setLastName = (lastName) => ({
 // USER REDUCER
 
 export default function userReducer(state = userState, action) {
-    if (action.type === 'setFirstName') {
-        const firstName = action.payload.firstName;
-        return produce(state, (draft) => {
-            draft.firstName = firstName;
-        });
-    }
-    if (action.type === 'setLastName') {
-        const lastName = action.payload.lastName;
-        return produce(state, (draft) => {
-            draft.lastName = lastName;
-        });
-    }
     return produce(state, (draft) => {
         switch (action.type) {
+            case 'setFirstName': {
+                const firstName = action.payload.firstName;
+                return produce(state, (draft) => {
+                    draft.firstName = firstName;
+                });
+            }
+            case 'setLastName': {
+                const lastName = action.payload.lastName;
+                return produce(state, (draft) => {
+                    draft.lastName = lastName;
+                });
+            }
             case USER_FETCHING: {
                 if (draft.user_status === 'void') {
                     draft.user_status = 'pending';

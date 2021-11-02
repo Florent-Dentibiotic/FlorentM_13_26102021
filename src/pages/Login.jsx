@@ -7,13 +7,23 @@ import { Redirect } from 'react-router-dom';
 import { Loader } from '../components/Loader';
 
 export default function Login() {
+    // REDUX FUNCTIONS
     const store = useStore();
     const dispatch = useDispatch();
     const login = useSelector(selectLogin);
+
+    // REACT LOCAL FUNCTIONS
     const [checkBox, setCheckBox] = useState(false);
     const [email, setFormEmail] = useState('');
     const [password, setFormPassword] = useState('');
 
+    /**
+     * UPDATE EMAIL AND PASSWORD IN REDUX LOGIN STATE
+     *
+     * THEN
+     *
+     * CALL PUSH SERVICE TO TRY TO CONNECT USER
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();

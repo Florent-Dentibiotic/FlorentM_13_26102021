@@ -17,11 +17,9 @@ function App() {
                 <Route exact path="/sign-in">
                     <Login />
                 </Route>
-                <Route
-                    exact
-                    path="/profile"
-                    render={(props) => <Profile {...props} />}
-                />
+                <Route exact path="/profile">
+                    <Profile />
+                </Route>
             </Switch>
             <Footer />
         </Router>
