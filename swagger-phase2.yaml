@@ -33,7 +33,7 @@ paths:
                     schema:
                         type: 'array'
                         items:
-                            $ref: '#definitions/user/transaction'
+                            $ref: '#definitions/Transaction'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -45,8 +45,8 @@ paths:
             tags:
                 - User Transations
             summary: 'User Transactions API'
-            description: 'Show all month's transactions'
-            operationId: 'showMonthTansactions'
+            description: 'Show a transaction details'
+            operationId: 'showTansactionDetails'
             produces:
                 - 'application/json'
             parameters:
@@ -56,17 +56,17 @@ paths:
                   required: true
               - in: body
                   name: body
-                  description: Update transaction attributes
+                  description: Transaction Payload
                   required: true
                   schema:
-                    $ref: '#/user/transactionId'
+                    $ref: '#/definitions/TransactionId'
             responses:
                 '200':
                     description: User transaction retrieved successully
                     schema:
                         type: 'object'
                         items:
-                            $ref: '#/ApiResponse/transaction'
+                            $ref: '#/definition/TransactionResponse/'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -91,14 +91,14 @@ paths:
                   description: Update transaction attributes
                   required: true
                   schema:
-                    $ref: '#/user/transaction'
+                    $ref: '#/definition/Transaction'
             responses:
                 '200':
-                    description: User transactions retrieved successully
+                    description: User transaction updated successully
                     schema:
-                        type: 'array'
+                        type: 'object'
                         items:
-                            $ref: '#/user/transaction'
+                            $ref: '#/definition/TransactionChangeResponse'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -120,17 +120,17 @@ paths:
                   required: true
               - in: body
                   name: body
-                  description: Update transaction attributes
+                  description: Delete transaction attributes
                   required: true
                   schema:
-                    $ref: '#/user/transaction'
+                    $ref: '#/definition/Transaction'
             responses:
                 '200':
                     description: User transactions retrieved successully
                     schema:
                         type: 'array'
                         items:
-                            $ref: '#/user/transaction'
+                            $ref: '#/definition/TransactionChangeResponse'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -167,6 +167,11 @@ definitions:
         notes:
           type: string
           description: notes field for user
+    TransactionId:
+        type: object
+        id:
+          type: integer
+          format: int64
     TransactionResponse:
         type: 'object'
         properties:
@@ -202,6 +207,8 @@ definitions:
                 notes:
                   type: string
                   description: notes field for user
-externalDocs:
-    description: 'Find out more about Swagger'
-    url: 'http://swagger.io'
+    TransactionChangeResponse:
+      status:
+        type: integer
+      message:
+        type: string
