@@ -12,5 +12,3 @@ const reducer = combineReducers({
 });
 
 export const store = createStore(reducer, reduxDevtools);
-
-//store.subscribe(console.log(store.getState()));
