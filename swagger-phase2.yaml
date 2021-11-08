@@ -1,15 +1,15 @@
 swagger: '2.0'
 info:
-    description: 'Contains all available API endpoints in this codebase'
-    version: '1.0.0'
-    title: 'Bank Argent API documentation'
-    termsOfService: 'https://smartbear.com/terms-of-use/'
+    description: Contains all available API endpoints in this codebase
+    version: 1.0.0
+    title: Bank Argent API documentation
+    termsOfService: https://smartbear.com/terms-of-use/
     contact:
-        email: 'apiteam@swagger.io'
+        email: apiteam@swagger.io
 host: localhost:3001
 basePath: /api/v1
 schemes:
-    - 'http'
+    - http
 paths:
     /user/transactions:
         post:
@@ -17,22 +17,22 @@ paths:
                 - Bearer: []
             tags:
                 - User Transations
-            summary: 'User Transactions API'
-            description: 'Show all month s transactions'
-            operationId: 'showMonthTansactions'
+            summary: User Transactions API
+            description: Show all month s transactions
+            operationId: showMonthTansactions
             produces:
-                - 'application/json'
+                - application/json
             parameters:
-                - in: 'header'
+                - in: header
                   type: string
-                  name: 'Authorization'
-                  description: 'Attach Bearer JWT token'
+                  name: Authorization
+                  description: Attach Bearer JWT token
                   required: true
             responses:
                 '200':
                     description: User transactions retrieved successully
                     schema:
-                        type: 'array'
+                        type: array
                         items:
                             $ref: '#/definitions/Transaction'
                 '400':
@@ -45,22 +45,22 @@ paths:
                 - Bearer: []
             tags:
                 - User Transations
-            summary: 'User Transactions API'
-            description: 'Show a transaction details'
-            operationId: 'showTansactionDetails'
+            summary: User Transactions API
+            description: Show a transaction details
+            operationId: showTansactionDetails
             produces:
-                - 'application/json'
+                - application/json
             parameters:
-                - name: 'transactionId'
-                  in: 'path'
-                  description: 'ID of transaction to return'
+                - name: transactionId
+                  in: path
+                  description: ID of transaction to return
                   required: true
-                  type: 'integer'
-                  format: 'int64'
-                - in: 'header'
+                  type: integer
+                  format: int64
+                - in: header
                   type: string
-                  name: 'Authorization'
-                  description: 'Attach Bearer JWT token'
+                  name: Authorization
+                  description: Attach Bearer JWT token
                   required: true
                 - in: body
                   name: body
@@ -72,7 +72,7 @@ paths:
                 '200':
                     description: User transaction retrieved successully
                     schema:
-                        type: 'object'
+                        type: object
                         items:
                             $ref: '#/definitions/Transaction'
                 '400':
@@ -84,22 +84,22 @@ paths:
                 - Bearer: []
             tags:
                 - User Transations
-            summary: 'User Transactions API'
-            description: 'Modifying transaction details'
-            operationId: 'modifyTansactionDetails'
+            summary: User Transactions API
+            description: Modifying transaction details
+            operationId: modifyTansactionDetails
             produces:
-                - 'application/json'
+                - application/json
             parameters:
-                - name: 'transactionId'
-                  in: 'path'
-                  description: 'ID of transaction to return'
+                - name: transactionId
+                  in: path
+                  description: ID of transaction to return
                   required: true
-                  type: 'integer'
-                  format: 'int64'
-                - in: 'header'
+                  type: integer
+                  format: int64
+                - in: header
                   type: string
-                  name: 'Authorization'
-                  description: 'Attach Bearer JWT token'
+                  name: Authorization
+                  description: Attach Bearer JWT token
                   required: true
                 - in: body
                   name: body
@@ -111,7 +111,7 @@ paths:
                 '200':
                     description: User transaction updated successully
                     schema:
-                        type: 'object'
+                        type: object
                         items:
                             $ref: '#/definitions/TransactionModifyResponse'
                 '400':
@@ -123,22 +123,22 @@ paths:
                 - Bearer: []
             tags:
                 - User Transations
-            summary: 'User Transactions API'
-            description: 'Deleting transaction details'
-            operationId: 'DeleteTansactionDetails'
+            summary: User Transactions API
+            description: Deleting transaction details
+            operationId: DeleteTansactionDetails
             produces:
-                - 'application/json'
+                - application/json
             parameters:
-                - name: 'transactionId'
-                  in: 'path'
-                  description: 'ID of transaction to return'
+                - name: transactionId
+                  in: path
+                  description: ID of transaction to return
                   required: true
-                  type: 'integer'
-                  format: 'int64'
-                - in: 'header'
+                  type: integer
+                  format: int64
+                - in: header
                   type: string
-                  name: 'Authorization'
-                  description: 'Attach Bearer JWT token'
+                  name: Authorization
+                  description: Attach Bearer JWT token
                   required: true
                 - in: body
                   name: body
@@ -150,7 +150,7 @@ paths:
                 '200':
                     description: User transactions retrieved successully
                     schema:
-                        type: 'array'
+                        type: array
                         items:
                             $ref: '#/definitions/TransactionModifyResponse'
                 '400':
@@ -190,6 +190,12 @@ definitions:
             notes:
                 type: string
                 description: notes field for user
+    TransactionId:
+        type: object
+        properties:
+            id:
+                type: integer
+                format: int64
     TransactionModify:
         type: object
         properties:
@@ -205,19 +211,13 @@ definitions:
             notes:
                 type: string
                 description: notes field for user
-    TransactionId:
+    TransactionModifyResponse:
         type: object
         properties:
-            id:
-                type: integer
-                format: int64
-    TransactionModifyResponse:
-        type: 'object'
-        properties:
             code:
-                type: 'integer'
-                format: 'int32'
+                type: integer
+                format: int32
             type:
-                type: 'string'
+                type: string
             message:
-                type: 'string'
+                type: string
