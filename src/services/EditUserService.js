@@ -12,8 +12,8 @@ const userRejected = (error) => ({ type: USER_REJECTED, payload: error });
 
 export async function editUserService(store, token) {
     const status = selectUser(store.getState()).user_status;
-    const firstName = selectUser(store.getState()).firstName;
-    const lastName = selectUser(store.getState()).lastName;
+    const firstName = selectUser(store.getState()).user.firstName;
+    const lastName = selectUser(store.getState()).user.lastName;
     if (status === 'pending' || status === 'updating') {
         return;
     }

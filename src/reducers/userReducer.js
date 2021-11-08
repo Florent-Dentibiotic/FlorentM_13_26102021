@@ -9,9 +9,11 @@ import {
 
 const userState = {
     user_status: 'void',
-    firstName: null,
-    lastName: null,
     error: null,
+    user: {
+        firstName: null,
+        lastName: null,
+    },
 };
 
 // ACTIONS CREATOR
@@ -34,13 +36,23 @@ export default function userReducer(state = userState, action) {
             case 'setFirstName': {
                 const firstName = action.payload.firstName;
                 return produce(state, (draft) => {
-                    draft.firstName = firstName;
+                    //draft.firstName = firstName;
+                    draft.user.firstName = firstName;
                 });
             }
             case 'setLastName': {
                 const lastName = action.payload.lastName;
                 return produce(state, (draft) => {
-                    draft.lastName = lastName;
+                    //draft.lastName = lastName;
+                    draft.user.lastName = lastName;
+                });
+            }
+            case 'LogOutUser': {
+                return produce(state, (draft) => {
+                    draft.user.firstName = null;
+                    draft.user.lastName = null;
+                    draft.user_status = 'void';
+                    draft.error = null;
                 });
             }
             case USER_FETCHING: {
@@ -75,8 +87,10 @@ export default function userReducer(state = userState, action) {
                     draft.user_status === 'updating'
                 ) {
                     draft.error = action.payload;
-                    draft.firstName = null;
-                    draft.lastName = null;
+                    //draft.firstName = null;
+                    draft.user.firstName = null;
+                    //draft.lastName = null;
+                    draft.user.lastName = null;
                     draft.user_status = 'rejected';
                     return;
                 }

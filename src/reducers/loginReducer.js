@@ -4,8 +4,10 @@ import { FETCHING, RESOLVED, REJECTED } from '../services/LoginService';
 // INITIAL STATE
 
 const loginState = {
-    email: null,
-    password: null,
+    credentials: {
+        email: null,
+        password: null,
+    },
     status: 'void',
     token: null,
     error: null,
@@ -39,13 +41,13 @@ export default function loginReducer(state = loginState, action) {
             case 'setEmail': {
                 const email = action.payload.email;
                 return produce(state, (draft) => {
-                    draft.email = email;
+                    draft.credentials.email = email;
                 });
             }
             case 'setPassword': {
                 const password = action.payload.password;
                 return produce(state, (draft) => {
-                    draft.password = password;
+                    draft.credentials.password = password;
                 });
             }
             case FETCHING: {
@@ -82,8 +84,8 @@ export default function loginReducer(state = loginState, action) {
                 return;
             }
             case 'LogOutUser': {
-                draft.email = null;
-                draft.password = null;
+                draft.credentials.email = null;
+                draft.credentials.password = null;
                 draft.status = 'void';
                 draft.token = null;
                 draft.error = null;

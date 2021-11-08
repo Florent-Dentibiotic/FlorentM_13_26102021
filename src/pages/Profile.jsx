@@ -3,7 +3,7 @@ import { useStore, useSelector, useDispatch } from 'react-redux';
 import { selectUser, selectLogin } from '../Selectors/selector';
 import { editUserService } from '../services/EditUserService';
 import { userService } from '../services/UserService';
-import { setFirstName, setLastName } from '../features/userReducer';
+import { setFirstName, setLastName } from '../reducers/userReducer';
 import { Redirect } from 'react-router-dom';
 
 export default function Profile() {
@@ -20,8 +20,7 @@ export default function Profile() {
     const [newLastName, setNewLastName] = useState('');
 
     // REGEX
-    const regexFirst = /^[a-zA-Z]+[a-zA-Z-]?[a-zA-Z]+$/;
-    const regexLast = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
+    const regexName = /^[a-zA-Z]+[a-zA-Z'-]?[a-zA-Z]+$/;
 
     /**
      * RECOVERING USER DETAILS WITH USER SERVICE
@@ -40,10 +39,13 @@ export default function Profile() {
     const editNav = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (regexFirst.test(newFirstName) && newFirstName !== user.firstName) {
+        if (
+            regexName.test(newFirstName) &&
+            newFirstName !== user.user.firstName
+        ) {
             dispatch(setFirstName(newFirstName));
         }
-        if (regexLast.test(newLastName) && newLastName !== user.LastName) {
+        if (regexName.test(newLastName) && newLastName !== user.user.LastName) {
             dispatch(setLastName(newLastName));
         }
         editUserService(store, token);
@@ -52,7 +54,7 @@ export default function Profile() {
 
     return (
         <>
-            {login.status === 'resolved' ? (
+            {login.status === 'resolved' || user.user.firstName ? (
                 <>
                     {user.user_status === 'resolved' && (
                         <>
@@ -68,7 +70,7 @@ export default function Profile() {
                                                         type="text"
                                                         id="username"
                                                         placeholder={
-                                                            user.firstName
+                                                            user.user.firstName
                                                         }
                                                         onChange={(e) =>
                                                             setNewFirstName(
@@ -81,7 +83,7 @@ export default function Profile() {
                                                         type="text"
                                                         id="lastname"
                                                         placeholder={
-                                                            user.lastName
+                                                            user.user.lastName
                                                         }
                                                         onChange={(e) =>
                                                             setNewLastName(
@@ -113,7 +115,8 @@ export default function Profile() {
                                             <h1>
                                                 Welcome back
                                                 <br />
-                                                {user.firstName} {user.lastName}
+                                                {user.user.firstName}{' '}
+                                                {user.user.lastName}
                                             </h1>
                                             <button
                                                 className="edit-button"

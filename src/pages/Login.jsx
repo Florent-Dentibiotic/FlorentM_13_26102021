@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useStore, useSelector } from 'react-redux';
-import { setEmail, setPassword } from '../features/loginReducer';
+import { setEmail, setPassword } from '../reducers/loginReducer';
 import { selectLogin } from '../Selectors/selector';
 import { loginService } from '../services/LoginService';
 import { Redirect } from 'react-router-dom';
@@ -30,6 +30,7 @@ export default function Login() {
         if (!email || !password) {
             return;
         }
+
         dispatch(setEmail(email));
         dispatch(setPassword(password));
 

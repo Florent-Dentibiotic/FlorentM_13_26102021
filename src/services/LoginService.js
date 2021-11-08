@@ -12,8 +12,8 @@ const loginRejected = (error) => ({ type: REJECTED, payload: error });
 
 export async function loginService(store) {
     const status = selectLogin(store.getState()).status;
-    const email = selectLogin(store.getState()).email;
-    const password = selectLogin(store.getState()).password;
+    const email = selectLogin(store.getState()).credentials.email;
+    const password = selectLogin(store.getState()).credentials.password;
     if (status === 'pending' || status === 'updating') {
         return;
     }
@@ -34,7 +34,9 @@ export async function loginService(store) {
             }
         );
         const json = await response.json();
-        store.dispatch(loginResolved(TokenMapper.convertToToken(json).token));
+        const token = TokenMapper.convertToToken(json).token;
+        store.dispatch(loginResolved(token));
+        localStorage.setItem('token', token);
     } catch (error) {
         console.log(error.message);
         store.dispatch(loginRejected(error.message));

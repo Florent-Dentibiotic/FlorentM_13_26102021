@@ -18,7 +18,7 @@ paths:
             tags:
                 - User Transations
             summary: 'User Transactions API'
-            description: 'Show all month's transactions'
+            description: 'Show all month\'s transactions'
             operationId: 'showMonthTansactions'
             produces:
                 - 'application/json'
@@ -38,8 +38,8 @@ paths:
                     description: Invalid Fields
                 '500':
                     description: Internal Server Error
-    /user/transactions/{transactionId}:
-        post:
+    /user/transactions?id={transactionId}:
+        get:
             security:
                 - Bearer: []
             tags:
@@ -66,7 +66,7 @@ paths:
                     schema:
                         type: 'object'
                         items:
-                            $ref: '#/definition/TransactionResponse/'
+                            $ref: '#/definition/Transaction'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -91,14 +91,14 @@ paths:
                   description: Update transaction attributes
                   required: true
                   schema:
-                    $ref: '#/definition/Transaction'
+                    $ref: '#/definition/TransactionModify'
             responses:
                 '200':
                     description: User transaction updated successully
                     schema:
                         type: 'object'
                         items:
-                            $ref: '#/definition/TransactionChangeResponse'
+                            $ref: '#/definition/TransactionModifyResponse'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -123,14 +123,14 @@ paths:
                   description: Delete transaction attributes
                   required: true
                   schema:
-                    $ref: '#/definition/Transaction'
+                    $ref: '#/definition/TransactionModify'
             responses:
                 '200':
                     description: User transactions retrieved successully
                     schema:
                         type: 'array'
                         items:
-                            $ref: '#/definition/TransactionChangeResponse'
+                            $ref: '#/definition/TransactionModifyResponse'
                 '400':
                     description: Invalid Fields
                 '500':
@@ -167,47 +167,26 @@ definitions:
         notes:
           type: string
           description: notes field for user
+    TransactionModify:
+        type: object
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+          description: transaction type
+        category:
+          type: string
+          description: transaction category
+        notes:
+          type: string
+          description: notes field for user
     TransactionId:
         type: object
         id:
           type: integer
           format: int64
-    TransactionResponse:
-        type: 'object'
-        properties:
-            code:
-                type: 'integer'
-                format: 'int32'
-            type:
-                type: 'string'
-            body:
-              type: object
-              properties:
-                id:
-                  type: integer
-                  format: int64
-                date:
-                  type: string
-                  description: transaction date
-                details:
-                  type: string
-                  description: transaction description
-                amount:
-                  type: number
-                  description: transaction amount
-                balance:
-                  type: number
-                  description: account balance
-                type:
-                  type: string
-                  description: transaction type
-                category:
-                  type: string
-                  description: transaction category
-                notes:
-                  type: string
-                  description: notes field for user
-    TransactionChangeResponse:
+    TransactionModifyResponse:
       status:
         type: integer
       message:

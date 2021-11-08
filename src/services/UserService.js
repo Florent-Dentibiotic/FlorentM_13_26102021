@@ -1,4 +1,4 @@
-import { setFirstName, setLastName } from '../features/userReducer';
+import { setFirstName, setLastName } from '../reducers/userReducer';
 import { selectUser } from '../Selectors/selector';
 import UserMapper from '../mappings/userMapper';
 

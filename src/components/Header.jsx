@@ -1,13 +1,26 @@
 import ArgentBankLogo from '../assets/argentBankLogo.png';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectLogin, selectUser } from '../Selectors/selector';
-import { Log_out } from '../features/loginReducer';
+import { useStore, useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../Selectors/selector';
+import { Log_out } from '../reducers/loginReducer';
+import { userService } from '../services/UserService';
+import { useEffect } from 'react';
 
 export default function Header() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
-    const login = useSelector(selectLogin);
+    //const login = useSelector(selectLogin);
+    const store = useStore();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        token && userService(store, token);
+    }, [store]);
+
+    const logOut = () => {
+        dispatch(Log_out());
+        localStorage.removeItem('token');
+    };
 
     return (
         <nav className="main-nav">
@@ -20,17 +33,13 @@ export default function Header() {
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
             <div>
-                {login.status === 'resolved' ? (
+                {user.user.firstName ? (
                     <>
                         <Link className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle"></i>{' '}
-                            {user.firstName}
+                            {user.user.firstName}
                         </Link>
-                        <Link
-                            className="main-nav-item"
-                            to="/"
-                            onClick={() => dispatch(Log_out())}
-                        >
+                        <Link className="main-nav-item" to="/" onClick={logOut}>
                             <i className="fa fa-sign-out"></i> Sign Out
                         </Link>
                     </>
