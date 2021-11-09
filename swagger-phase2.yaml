@@ -12,7 +12,7 @@ schemes:
     - http
 paths:
     /user/transactions:
-        post:
+        get:
             security:
                 - Bearer: []
             tags:

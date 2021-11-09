@@ -14,7 +14,7 @@ export default function Header() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        token && userService(store, token);
+        token && userService(store, token, 'POST');
     }, [store]);
 
     const logOut = () => {

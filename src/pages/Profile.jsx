@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useStore, useSelector, useDispatch } from 'react-redux';
 import { selectUser, selectLogin } from '../Selectors/selector';
-import { editUserService } from '../services/EditUserService';
 import { userService } from '../services/UserService';
 import { setFirstName, setLastName } from '../reducers/userReducer';
 import { Redirect } from 'react-router-dom';
@@ -26,7 +25,7 @@ export default function Profile() {
      * RECOVERING USER DETAILS WITH USER SERVICE
      */
     useEffect(() => {
-        token && userService(store, token);
+        token && userService(store, token, 'POST');
     }, [store, token]);
 
     /**
@@ -48,7 +47,7 @@ export default function Profile() {
         if (regexName.test(newLastName) && newLastName !== user.user.LastName) {
             dispatch(setLastName(newLastName));
         }
-        editUserService(store, token);
+        userService(store, token, 'PUT');
         setEditor(false);
     };
 
