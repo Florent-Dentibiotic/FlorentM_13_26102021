@@ -11,7 +11,7 @@ basePath: /api/v1
 schemes:
     - http
 paths:
-    /user/transactions:
+    /transactions:
         get:
             security:
                 - Bearer: []
@@ -39,7 +39,7 @@ paths:
                     description: Invalid Fields
                 '500':
                     description: Internal Server Error
-    /user/transactions/{transactionId}:
+    /transactions/{transactionId}:
         get:
             security:
                 - Bearer: []
@@ -72,9 +72,7 @@ paths:
                 '200':
                     description: User transaction retrieved successully
                     schema:
-                        type: object
-                        items:
-                            $ref: '#/definitions/Transaction'
+                        $ref: '#/definitions/Transaction'
                 '400':
                     description: Invalid Fields
                 '500':
