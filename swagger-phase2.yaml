@@ -200,9 +200,6 @@ definitions:
             id:
                 type: integer
                 format: int64
-            type:
-                type: string
-                description: transaction type
             category:
                 type: string
                 description: transaction category
